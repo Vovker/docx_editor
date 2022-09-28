@@ -6,27 +6,40 @@ import {Layout} from "antd";
 import {ToastContainer} from "react-toastify";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import Wrapper from "./components/wrapper/wrapper";
+import {TemplatesPage} from "./pages/templatesPage/templatesPage";
+import {GeneratePage} from "./pages/generatePage";
+import fs from "fs";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
 
 const App = () => {
 
-  return (
-    <Layout
-      style={{
-        minHeight: '100vh',
-      }}
-    >
-      <ToastContainer/>
-      <HashRouter>
-        <Routes>
-          <Route path={'/'} element={<Wrapper/>}>
+  if (!fs.existsSync('templates')){
+    fs.mkdirSync('templates');
+  }
 
-          </Route>
-        </Routes>
-      </HashRouter>
-    </Layout>
+  return (
+    <Provider store={store}>
+      <Layout
+        style={{
+          minHeight: '100vh',
+        }}
+      >
+        <ToastContainer/>
+        <HashRouter>
+          <Routes>
+            <Route path={'/'} element={<Wrapper/>}>
+              <Route path={'/'} element={<TemplatesPage/>}/>
+              <Route path={'/templates'} element={<TemplatesPage/>}/>
+              <Route path={'/generate'} element={<GeneratePage/>}/>
+            </Route>
+          </Routes>
+        </HashRouter>
+      </Layout>
+    </Provider>
   )
 }
 

@@ -1,0 +1,27 @@
+const ADD_TEMPLATE = 'ADD_TEMPLATE';
+const GET_TEMPLATES_LIST = 'GET_TEMPLATES_LIST';
+const SELECT_TEMPLATE = 'SELECT_TEMPLATE';
+const DELETE_TEMPLATE = 'DELETE_TEMPLATE';
+const SELECT_BY_CATEGORY = 'SELECT_BY_CATEGORY';
+const DESELECT_BY_CATEGORY = 'DESELECT_BY_CATEGORY';
+const DESELECT_ALL = 'DESELECT_ALL';
+
+export {
+  ADD_TEMPLATE,
+  GET_TEMPLATES_LIST,
+  SELECT_TEMPLATE,
+  DELETE_TEMPLATE,
+  SELECT_BY_CATEGORY,
+  DESELECT_BY_CATEGORY,
+  DESELECT_ALL
+}
+
+export type TemplateTypes = {
+  name: string;
+  isSelected: boolean;
+  tags: [string]
+}
+
+export type TemplatesState = {
+  templates: TemplateTypes[];
+}
