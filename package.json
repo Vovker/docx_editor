@@ -1,7 +1,7 @@
 {
   "name": "electron-react-ts",
   "version": "1.1.0",
-  "description": "New Electron app",
+  "description": "Docx Manager to autogenerate docs from templates",
   "main": "./dist/main.js",
   "scripts": {
     "dev:electron": "set NODE_ENV=development && webpack --config webpack.electron.config.js --mode development && electron .",
@@ -13,7 +13,7 @@
     "dist": "electron-builder dist 'Docx manager'"
   },
   "keywords": [],
-  "author": "elisealcala",
+  "author": "Uladzimir Kavalchuk",
   "license": "ISC",
   "build": {
     "files": [
@@ -22,7 +22,7 @@
       "package.json"
     ],
     "productName": "Docx manager",
-    "appId": "com.example.app",
+    "appId": "com.docxtemplater.app",
     "directories": {
       "output": "dist"
     }

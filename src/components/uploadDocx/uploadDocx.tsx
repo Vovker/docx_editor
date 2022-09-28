@@ -52,7 +52,15 @@ export const UploadDocx = () => {
         toast(`${file.name} успешно сохранен`, {type: 'success'})
         dispatch(addTemplate(file.name, values.categories));
       })
-      .catch(() => toast('Что-то не так с файлом', {type: 'error'}))
+      .catch((e) => {
+        if(e.name === "TemplateError"){
+          toast(`
+          Ошибка в шаблоне
+          Неправильный тег: ${e.properties.errors[0].properties.context}`, {type: 'error'})
+        }
+        else
+          toast('Что-то не так с файлом', {type: 'error'})
+      })
     await form.resetFields();
     await setVisible(false);
   }

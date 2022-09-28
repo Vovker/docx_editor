@@ -20,7 +20,7 @@ export const GeneratePage = () => {
         const content = fs.readFileSync(`templates/${template.name}`, 'binary');
         const zip = new PizZip(content);
         const iModule = new InspectModule();
-        const doc = new DocxTemplater(zip, { modules: [iModule] });
+        new DocxTemplater(zip, { modules: [iModule] });
         const placeholders = iModule.getAllTags();
         setForm((prevState: any) => {
           return {
@@ -28,7 +28,7 @@ export const GeneratePage = () => {
             ...placeholders
           }
         })
-        setDocs((prevState: any) => prevState.concat(doc))
+        setDocs((prevState: any) => prevState.concat(template.name))
       }
     })
   }, [templates]);
@@ -36,10 +36,12 @@ export const GeneratePage = () => {
   const onFinish = (values: any) => {
     const names = templates.filter((template: TemplateTypes) => template.isSelected)
 
-    docs.map((doc: DocxTemplater, index) => {
-      const docData = doc.render(values)
-
-      const buf = docData.getZip().generate({type: 'nodebuffer', compression: 'DEFLATE'});
+    docs.map((doc: string, index) => {
+      const content = fs.readFileSync(`templates/${doc}`, 'binary');
+      const zip = new PizZip(content);
+      const iModule = new InspectModule();
+      const data = new DocxTemplater(zip, { modules: [iModule], nullGetter() { return ''; }});
+      const buf = data.render(values).getZip().generate({type: 'nodebuffer', compression: 'DEFLATE'});
       saveAs(new Blob([buf]), `${names[index].name}`);
     })
   }
